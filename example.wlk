@@ -1,9 +1,20 @@
-object pepita {
-  var energy = 100
+// Personas:
 
-  method energy() = energy
+class Persona {
+  var recursos = 20
+  var edad
 
-  method fly(minutes) {
-    energy = energy - minutes * 3
+  method esDestacada() = edad.between(18, 65) or recursos > 30
+
+  method ganarMonedas(unaCantidad){
+    recursos += unaCantidad
+  }
+
+  method gastarMonedas(unaCantidad){
+    recursos -= unaCantidad
+  }
+
+  method cumplirAnios(){
+    edad += 1
   }
 }
