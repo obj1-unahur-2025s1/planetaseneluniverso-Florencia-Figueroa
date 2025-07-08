@@ -1,0 +1,36 @@
+import personas.*
+import planetas.*
+import construcciones.*
+
+describe "test de planetas en el universo" {
+
+    // Personas:
+        const flor   = new Persona (edad = 19)
+        const lucas  = new Persona (edad = 44)
+        const noelia = new Persona (edad = 39)
+        const ulises = new Persona (edad = 8)
+
+    // Constrcciones:
+        const muralla_1 = new Muralla(longitud = 20)
+        const muralla_2 = new Muralla(longitud = 18)
+        const museo     = new Museo (superficie = 35, indiceImportancia = 3)
+
+    // Planetas:
+        const urano = new Planeta(habitantes = #{flor, lucas, noelia, ulises}, construcciones = #{muralla_1, muralla_2, museo} )
+
+
+
+    test "Delegacion diplomatica de Urano"{
+        urano.delegacionDiplomatica()
+        assert.equals(#{flor, lucas, noelia} , urano.delegacionDiplomatica())
+    }
+
+    test "Urano es considerado un planeta valioso"{
+        assert.that(urano.esValioso())
+    }
+
+    test "Los habitantes destacados de Urano"{
+        assert.equals(#{flor, lucas, noelia}, urano.habitantesDestacados())
+    }
+
+}
