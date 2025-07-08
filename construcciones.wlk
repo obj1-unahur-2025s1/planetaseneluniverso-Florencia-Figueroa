@@ -1,13 +1,13 @@
 // Construccciones:
 class Muralla {
-    var longitud 
+    const longitud 
 
     method valor() = longitud * 10
 }
 
 class Museo {
-    var superficie
-    var indiceImportancia //--> Entre 1 y 5
+    const superficie
+    const indiceImportancia //--> Entre 1 y 5
 
     method valor() = superficie * indiceImportancia
 }
