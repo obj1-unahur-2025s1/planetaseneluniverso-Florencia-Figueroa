@@ -1,5 +1,6 @@
 import personas.*
 import planetas.*
+import regiones.*
 import construcciones.*
 
 describe "test de planetas en el universo" {
@@ -10,18 +11,21 @@ describe "test de planetas en el universo" {
         const noelia = new Persona (edad = 39)
         const ulises = new Persona (edad = 8)
 
+        const bob  = new Constructor(edad = 47, regionDondeVive = montaña, inteligencia = 23, cantidadConstrucciones = 6)
+        const biza = new Productor  (edad = 28)
+
     // Constrcciones:
         const muralla_1 = new Muralla(longitud = 20)
         const muralla_2 = new Muralla(longitud = 18)
         const museo     = new Museo (superficie = 35, indiceImportancia = 3)
 
     // Planetas:
-        const urano = new Planeta(habitantes = #{flor, lucas, noelia, ulises}, construcciones = #{muralla_1, muralla_2, museo} )
+        const urano = new Planeta(habitantes = #{flor, lucas, noelia, ulises}, construcciones = #{muralla_1, muralla_2, museo})
+        const tierra = new Planeta(habitantes = #{flor, biza, noelia, bob}, construcciones = #{muralla_1, museo})
 
 
 
     test "Delegacion diplomatica de Urano"{
-        urano.delegacionDiplomatica()
         assert.equals(#{flor, lucas, noelia} , urano.delegacionDiplomatica())
     }
 
@@ -33,4 +37,27 @@ describe "test de planetas en el universo" {
         assert.equals(#{flor, lucas, noelia}, urano.habitantesDestacados())
     }
 
+    test "Biza aprende nuevas tecnicas y las agrega a su coleccion luego trabaja en su planeta" {
+      biza.aprenderTecnica("Edicion")
+      biza.aprenderTecnica("canto")
+      assert.that(biza.tecnicas().contains("Edicion"))
+      assert.that(biza.tecnicas().contains("canto"))
+
+      biza.trabajarEn(tierra, 4)
+      assert.equals(96, biza.recursos())
+    }
+
+    test "Bob aprende nuevas tecnicas, las agrega a su coleccion, trabaja y aumentar la cantidad de construcciones" {
+    //   bob.aprenderTecnica("soldadura")
+    //   bob.aprenderTecnica("reboque")
+    //   assert.that(bob.tecnicas().contains("soldadura"))
+    //   assert.that(bob.tecnicas().contains("reboque"))
+
+      bob.trabajarEn(urano, 6)
+      assert.equals(7, bob.cantidadConstrucciones())
+    }
+
+    test "Delegacion diplomatica de la Tierra "{
+        assert.equals(#{flor, biza, noelia, bob}, tierra.habitantesDestacados())
+    }
 }

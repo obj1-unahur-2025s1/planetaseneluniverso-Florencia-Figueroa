@@ -1,4 +1,6 @@
 import construcciones.*
+import regiones.*
+
 
 // Personas:
 
@@ -25,7 +27,7 @@ class Persona {
 
 
 class Productor inherits Persona {
-  const tecnicas = #{"cultivo"}
+  const tecnicas = ["cultivo"]
 
   override method recursos() = super() * tecnicas.size()
 
@@ -51,10 +53,10 @@ class Productor inherits Persona {
 
 
 class Constructor inherits Persona {
-  const tecnicas = #{"cultivo"}
+  const tecnicas = ["cultivo"]
   const regionDondeVive
   const property inteligencia
-  var cantidadConstrucciones
+  var property cantidadConstrucciones
 
   method tecnicas() = tecnicas
 
@@ -62,10 +64,14 @@ class Constructor inherits Persona {
     super(unaCatidad) + (10 * cantidadConstrucciones)
   } 
 
+  method aprenderTecnica(unaTecnica){
+    tecnicas.add(unaTecnica)
+  }
+
   override method esDestacada() = cantidadConstrucciones > 5
 
   method trabajarEn(unPlaneta, tiempo){
-    unPlaneta.construir(regionDondeVive.construccion(tiempo))
+    unPlaneta.construir(regionDondeVive.construccion(self, tiempo))
     cantidadConstrucciones += 1
     self.gastarMonedas(5)
   }
